@@ -27,8 +27,9 @@ public class PasswordController {
         String passwordText = passwords.get(index);
         System.out.println("Ustawiam haslo na " + passwordText);
 
-        Password password = new Password(passwordText.replaceAll("(\\w)", "*"));
+        Password password = new Password(passwordText);
         passwordRepository.setPassword(password);
+        passwordRepository.setCurrentGuess(new Password(passwordText.replaceAll("(\\w)", "*")));
 
         return password;
     }
