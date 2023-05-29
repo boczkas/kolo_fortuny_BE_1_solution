@@ -42,10 +42,15 @@ public class PasswordController {
     @PostMapping("/guess")
     @ResponseBody
     public Password guess(@RequestBody String letter) {
-//        Dopisz implementację sprawdzającą, czy podana litera istnieje w haśle
-//        Zwróć hasło, które będzie miało odsłonięte odgadnięte do tej pory litery
+        String passwordText = passwordRepository.getPassword().getText();
+        if (passwordText.contains(letter)) {
+            String updatedText =
+                    passwordService.getUpdatedText(
+                            passwordText, passwordRepository.getCurrentGuess().getText(), letter);
+            passwordRepository.setCurrentGuess(new Password(updatedText));
+        }
 
-        return null;
+        return passwordRepository.getCurrentGuess();
     }
 
 }

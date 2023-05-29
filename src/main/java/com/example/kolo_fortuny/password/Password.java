@@ -1,7 +1,7 @@
 package com.example.kolo_fortuny.password;
 
 public class Password {
-    String text;
+    private final String text;
 
     public Password(String text) {
         this.text = text;
