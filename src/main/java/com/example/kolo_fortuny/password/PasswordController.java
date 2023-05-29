@@ -12,9 +12,12 @@ import java.util.Random;
 public class PasswordController {
 
     private final PasswordRepository passwordRepository;
+    private final PasswordService passwordService;
 
-    public PasswordController(PasswordRepository passwordRepository) {
-        this.passwordRepository = passwordRepository;
+    public PasswordController(
+      PasswordRepository passwordRepository, PasswordService passwordService) {
+    this.passwordRepository = passwordRepository;
+    this.passwordService = passwordService;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -29,9 +32,10 @@ public class PasswordController {
 
         Password password = new Password(passwordText);
         passwordRepository.setPassword(password);
-        passwordRepository.setCurrentGuess(new Password(passwordText.replaceAll("(\\w)", "*")));
+        Password replacedPassword = new Password(passwordText.replaceAll("(\\w)", "*"));
+        passwordRepository.setCurrentGuess(replacedPassword);
 
-        return password;
+        return replacedPassword;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
