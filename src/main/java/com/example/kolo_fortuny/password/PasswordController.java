@@ -37,10 +37,10 @@ public class PasswordController {
     @PostMapping("/guess")
     @ResponseBody
     public Password guess(@RequestBody String letter) {
-        System.out.println("Guess");
-        System.out.println(letter);
+//        Dopisz implementację sprawdzającą, czy podana litera istnieje w haśle
+//        Zwróć hasło, które będzie miało odsłonięte odgadnięte do tej pory litery
 
-        return new Password("lalala la lala");
+        return null;
     }
 
 }
