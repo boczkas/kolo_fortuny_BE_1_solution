@@ -13,18 +13,26 @@ import java.util.Random;
 @Controller
 public class PasswordController {
 
-    private Random rand = SecureRandom.getInstanceStrong();
+    private final PasswordRepository passwordRepository;
 
-    public PasswordController() throws NoSuchAlgorithmException {
+    public PasswordController(PasswordRepository passwordRepository) {
+        this.passwordRepository = passwordRepository;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/password")
     @ResponseBody
-    public String getPassword() {
+    public Password getPassword() throws NoSuchAlgorithmException {
+        Random rand = SecureRandom.getInstanceStrong();
         List<String> passwords = WordList.getWORDS();
         int index = rand.nextInt(passwords.size());
-        return passwords.get(index);
+        String passwordText = passwords.get(index);
+        System.out.println("Ustawiam haslo na " + passwordText);
+
+        Password password = new Password(passwordText.replaceAll("(\\w)", "*"));
+        passwordRepository.setPassword(password);
+
+        return password;
     }
 
 }
