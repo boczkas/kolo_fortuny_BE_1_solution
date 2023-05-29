@@ -1,9 +1,7 @@
 package com.example.kolo_fortuny.password;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -33,6 +31,16 @@ public class PasswordController {
         passwordRepository.setPassword(password);
 
         return password;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/guess")
+    @ResponseBody
+    public Password guess(@RequestBody String letter) {
+        System.out.println("Guess");
+        System.out.println(letter);
+
+        return new Password("lalala la lala");
     }
 
 }
