@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 public class PasswordController {
 
     private final PasswordRepository passwordRepository;
@@ -20,7 +21,6 @@ public class PasswordController {
     this.passwordService = passwordService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/password")
     @ResponseBody
     public Password getPassword() throws NoSuchAlgorithmException {
@@ -38,7 +38,6 @@ public class PasswordController {
         return replacedPassword;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/guess")
     @ResponseBody
     public Password guess(@RequestBody String letter) {
