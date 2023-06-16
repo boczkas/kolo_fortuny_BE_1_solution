@@ -5,12 +5,13 @@ import java.util.List;
 public class WordList {
 //    wywalić polskie znaki
     private static List<String> WORDS = List.of(
-            "co nagle to po diable.",
+            "abc",
+            "co nagle to po diable",
             "czego Jas sie nie nauczy tego Jan nie bedzie umial",
             "gdzie kucharek szesc tam nie ma co jesc",
             "gdzie raki zimuja tam woda nie zamarza",
             "kto mieczem wojuje od miecza ginie",
-            "lepszy wróbel w garsci niz golab na dachu",
+            "lepszy wrobel w garsci niz golab na dachu",
             "nie chwal dnia przed zachodem slonca",
             "nie wszystko zloto co sie swieci",
             "od zawsze ciernie maja kolce",

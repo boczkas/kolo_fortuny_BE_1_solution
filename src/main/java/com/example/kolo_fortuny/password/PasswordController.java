@@ -24,32 +24,23 @@ public class PasswordController {
     @GetMapping("/password")
     @ResponseBody
     public Password getPassword() throws NoSuchAlgorithmException {
-        Random rand = SecureRandom.getInstanceStrong();
-        List<String> passwords = WordList.getWORDS();
-        int index = rand.nextInt(passwords.size());
-        String passwordText = passwords.get(index);
-        System.out.println("Ustawiam haslo na " + passwordText);
-
-        Password password = new Password(passwordText);
-        passwordRepository.setPassword(password);
-        Password replacedPassword = new Password(passwordText.replaceAll("(\\w)", "*"));
-        passwordRepository.setCurrentGuess(replacedPassword);
-
-        return replacedPassword;
+        passwordService.setRandomPassword();
+        passwordService.setCurrentGuess(
+                passwordService.getPasswordText().replaceAll("(\\w)", "*"));
+        return passwordService.getCurrentGuess();
     }
 
     @PostMapping("/guess")
     @ResponseBody
     public Password guess(@RequestBody String letter) {
-        String passwordText = passwordRepository.getPassword().getText();
-        if (passwordText.contains(letter)) {
-            String updatedText =
-                    passwordService.getUpdatedText(
-                            passwordText, passwordRepository.getCurrentGuess().getText(), letter);
-            passwordRepository.setCurrentGuess(new Password(updatedText));
-        }
+        passwordService.updateCurrentGuess(letter);
 
         return passwordRepository.getCurrentGuess();
     }
 
+    @PostMapping("/guess/password")
+    @ResponseBody
+    public boolean guessPassword(@RequestBody String password) {
+        return passwordService.isPasswordCorrect(password);
+    }
 }
